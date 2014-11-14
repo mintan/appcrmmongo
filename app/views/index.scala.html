@@ -1,0 +1,27 @@
+@(message: String, testModels: List[TestModel], testModelForm: Form[TestModel])
+
+@import helper._
+
+@main("Welcome to Play") {
+
+    <h1>View</h1>
+    @form(routes.Application.newTestModel()) {
+        @inputText(testModelForm("name"))
+        @inputText(testModelForm("value"))
+        <input type="submit" value="Create">
+    }
+    
+    <h1>Form</h1>
+    <ul>
+        @for(testModel <- testModels) {
+            <li>@testModel.name / @testModel.value
+            @form(routes.Application.deleteTestModel(testModel.id.toString())) {
+                <input type="submit" value="Delete">
+            }
+            </li>
+        }
+    </ul>
+
+    @* @play20.welcome(message, style = "Java") *@
+
+}
